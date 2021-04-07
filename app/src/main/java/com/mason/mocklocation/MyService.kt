@@ -34,10 +34,10 @@ class MyService:Service(){
 //                if ((getSystemService(Context.LOCATION_SERVICE) as LocationManager).getProvider(LocationManager.GPS_PROVIDER) === null) {
 //                    LocationUtil.addGPS()
 //                }
+                (getSystemService(LOCATION_SERVICE) as LocationManager).setTestProviderLocation(LocationManager.GPS_PROVIDER, mockLocation)
                 if (null === (getSystemService(LOCATION_SERVICE) as LocationManager).getLastKnownLocation(LocationManager.GPS_PROVIDER)?.latitude) {
                     init()
                 }
-                (getSystemService(LOCATION_SERVICE) as LocationManager).setTestProviderLocation(LocationManager.GPS_PROVIDER, mockLocation)
 //                if (LocationUtil.locationManager.getProvider(LocationManager.NETWORK_PROVIDER) === null) {
 //                    LocationUtil.addNET()
 //                }
@@ -61,6 +61,8 @@ class MyService:Service(){
                 (getSystemService(LOCATION_SERVICE) as LocationManager).removeTestProvider(LocationManager.GPS_PROVIDER)
             } catch (e: IllegalArgumentException) {
 
+            } catch (e:AbstractMethodError) {
+
             }
         }
         (getSystemService(LOCATION_SERVICE) as LocationManager).addTestProvider(LocationManager.GPS_PROVIDER,
@@ -69,6 +71,6 @@ class MyService:Service(){
                 true, true,
                 Criteria.POWER_LOW, Criteria.ACCURACY_FINE)
         (getSystemService(LOCATION_SERVICE) as LocationManager).setTestProviderEnabled(LocationManager.GPS_PROVIDER, true)
-        (getSystemService(LOCATION_SERVICE) as LocationManager).requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0f, LocationUtil.locationListener)
+//        (getSystemService(LOCATION_SERVICE) as LocationManager).requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0f, LocationUtil.locationListener)
     }
 }
